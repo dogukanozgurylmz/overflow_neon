@@ -4,9 +4,11 @@ import 'package:neon_overflow/core/responsive.dart';
 import 'package:neon_overflow/data/repository/category_repository.dart';
 import 'package:neon_overflow/data/repository/question_repository.dart';
 import 'package:neon_overflow/presentation/widgets/sidebar/sidebar.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/repository/answer_repository.dart';
 import '../../data/repository/user_repository.dart';
+import '../widgets/sidebar/sidebar_provider.dart';
 import 'cubit/home_cubit.dart';
 
 class HomeView extends StatelessWidget {
@@ -36,20 +38,7 @@ class HomeView extends StatelessWidget {
           //   );
           // }
           // if (state.status == HomeStatus.success) {}
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: state.status == HomeStatus.loading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Row(
-                    children: [
-                      Responsive.isMobile(context)
-                          ? const SizedBox.shrink()
-                          : Sidebar(),
-                    ],
-                  ),
-          );
+          return Text("home");
         },
       ),
     );

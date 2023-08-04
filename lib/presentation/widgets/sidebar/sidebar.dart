@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:neon_overflow/presentation/widgets/sidebar/sidebar_provider.dart';
 
-// ignore: must_be_immutable
 class Sidebar extends StatelessWidget {
-  SidebarStatus status = SidebarStatus.home;
-  Sidebar({super.key});
+  const Sidebar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +49,10 @@ class Sidebar extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
-                status = SidebarStatus.home;
+                //status = SidebarStatus.home;
+                context.read<SidebarProvider>().setStatus(SidebarStatus.home);
               },
               child: const Row(
                 children: [
@@ -75,9 +76,13 @@ class Sidebar extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
-                status = SidebarStatus.categories;
+                // status = SidebarStatus.categories;
+                context
+                    .read<SidebarProvider>()
+                    .setStatus(SidebarStatus.categories);
+                print(context.read<SidebarProvider>().getStatus);
               },
               child: const Row(
                 children: [
@@ -101,9 +106,11 @@ class Sidebar extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
-                status = SidebarStatus.notifications;
+                context
+                    .read<SidebarProvider>()
+                    .setStatus(SidebarStatus.notifications);
               },
               child: const Row(
                 children: [
@@ -127,9 +134,11 @@ class Sidebar extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
-                status = SidebarStatus.favorites;
+                context
+                    .read<SidebarProvider>()
+                    .setStatus(SidebarStatus.favorites);
               },
               child: const Row(
                 children: [
@@ -153,9 +162,11 @@ class Sidebar extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
-                status = SidebarStatus.myquestions;
+                context
+                    .read<SidebarProvider>()
+                    .setStatus(SidebarStatus.myquestions);
               },
               child: const Row(
                 children: [
@@ -179,9 +190,11 @@ class Sidebar extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
-                status = SidebarStatus.settings;
+                context
+                    .read<SidebarProvider>()
+                    .setStatus(SidebarStatus.settings);
               },
               child: const Row(
                 children: [
@@ -213,13 +226,4 @@ class Sidebar extends StatelessWidget {
       ),
     );
   }
-}
-
-enum SidebarStatus {
-  home,
-  categories,
-  notifications,
-  favorites,
-  myquestions,
-  settings,
 }
