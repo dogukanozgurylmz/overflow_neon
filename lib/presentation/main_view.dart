@@ -16,37 +16,36 @@ class MainView extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          Row(
-            children: [
-              Responsive.isMobile(context)
-                  ? const SizedBox.shrink()
-                  : const Sidebar(),
-              Column(
-                children: [
-                  const Header(),
-                  Consumer<SidebarProvider>(
-                    builder: (context, value, child) {
-                      var getStatus = context.read<SidebarProvider>().getStatus;
-                      if (getStatus == SidebarStatus.home) {
-                        return HomeView();
-                      } else if (getStatus == SidebarStatus.categories) {
-                        return const CategoriesView();
-                      } else if (getStatus == SidebarStatus.notifications) {
-                        return const Text("notification");
-                      } else if (getStatus == SidebarStatus.favorites) {
-                        return const Text("favorites");
-                      } else if (getStatus == SidebarStatus.myquestions) {
-                        return const Text("myquestions");
-                      } else if (getStatus == SidebarStatus.settings) {
-                        return const Text("settings");
-                      } else {
-                        return const Text("Default Data");
-                      }
-                    },
-                  ),
-                ],
-              )
-            ],
+          Responsive.isMobile(context)
+              ? const SizedBox.shrink()
+              : const Sidebar(),
+          Expanded(
+            // Use Expanded to take the remaining available width
+            child: Column(
+              children: [
+                const Header(),
+                Consumer<SidebarProvider>(
+                  builder: (context, value, child) {
+                    var getStatus = context.read<SidebarProvider>().getStatus;
+                    if (getStatus == SidebarStatus.home) {
+                      return HomeView();
+                    } else if (getStatus == SidebarStatus.categories) {
+                      return const CategoriesView();
+                    } else if (getStatus == SidebarStatus.notifications) {
+                      return const Text("notification");
+                    } else if (getStatus == SidebarStatus.favorites) {
+                      return const Text("favorites");
+                    } else if (getStatus == SidebarStatus.myquestions) {
+                      return const Text("myquestions");
+                    } else if (getStatus == SidebarStatus.settings) {
+                      return const Text("settings");
+                    } else {
+                      return const Text("Default Data");
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

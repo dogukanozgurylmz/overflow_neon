@@ -18,6 +18,13 @@ class HomeView extends StatelessWidget {
   final AnswerRepository answerRepository = AnswerRepository();
   final UserRepository userRepository = UserRepository();
 
+  int responsiveControl(context) {
+    if (!Responsive.isDesktop(context)) {
+      return 1;
+    }
+    return 2;
+  }
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -38,7 +45,21 @@ class HomeView extends StatelessWidget {
           //   );
           // }
           // if (state.status == HomeStatus.success) {}
-          return Text("home");
+          return Expanded(
+            // Use Expanded to take the remaining available height
+            child: Padding(
+              padding: EdgeInsets.only(
+                  right: Responsive.isDesktop(context) ? 120 : 0),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: responsiveControl(context)),
+                itemCount: 4, // Replace this with the actual count of cards
+                itemBuilder: (context, index) {
+                  return Placeholder(); // Make sure CardWidget has a proper height
+                },
+              ),
+            ),
+          );
         },
       ),
     );
