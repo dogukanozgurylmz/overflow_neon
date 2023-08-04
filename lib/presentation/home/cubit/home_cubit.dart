@@ -27,7 +27,7 @@ class HomeCubit extends Cubit<HomeState> {
           categories: [],
           answers: [],
         )) {
-    init();
+    // init();
   }
 
   final QuestionRepository _questionRepository;

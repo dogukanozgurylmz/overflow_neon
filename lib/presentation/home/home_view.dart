@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neon_overflow/data/repository/category_repository.dart';
 import 'package:neon_overflow/data/repository/question_repository.dart';
+import 'package:neon_overflow/presentation/widgets/sidebar/sidebar.dart';
 
 import '../../data/repository/answer_repository.dart';
 import '../../data/repository/user_repository.dart';
@@ -41,7 +42,9 @@ class HomeView extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   )
                 : Row(
-                    children: [],
+                    children: [
+                      Sidebar(),
+                    ],
                   ),
           );
         },
