@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:neon_overflow/core/responsive.dart';
 import 'package:neon_overflow/data/repository/category_repository.dart';
 import 'package:neon_overflow/data/repository/question_repository.dart';
 import 'package:neon_overflow/presentation/widgets/sidebar/sidebar.dart';
@@ -43,7 +44,9 @@ class HomeView extends StatelessWidget {
                   )
                 : Row(
                     children: [
-                      Sidebar(),
+                      Responsive.isMobile(context)
+                          ? const SizedBox.shrink()
+                          : Sidebar(),
                     ],
                   ),
           );
