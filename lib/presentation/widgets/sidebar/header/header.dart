@@ -9,7 +9,7 @@ class Header extends StatelessWidget {
     var size = MediaQuery.sizeOf(context);
     return Container(
       height: 70,
-      width: Responsive.isMobile(context) ? size.width : size.width - 270,
+      width: Responsive.isMobile(context) ? size.width : size.width - 250,
       decoration: const BoxDecoration(
         color: Color(0xff202020),
       ),
@@ -78,7 +78,11 @@ class Header extends StatelessWidget {
               ),
             ),
           ),
-          const CircleAvatar(),
+          Padding(
+            padding:
+                EdgeInsets.only(right: Responsive.isMobile(context) ? 8 : 25),
+            child: const CircleAvatar(),
+          ),
         ],
       ),
     );

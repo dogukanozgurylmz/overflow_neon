@@ -10,19 +10,18 @@ class Sidebar extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.only(left: 32),
-      width: 270,
+      width: 250,
       height: size.height,
       decoration: const BoxDecoration(
         color: Color(0xFF202020),
       ),
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          const Expanded(
-            flex: 1,
-            child: Text.rich(
+      child: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            const Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
@@ -46,10 +45,8 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: InkWell(
+            const SizedBox(height: 40),
+            InkWell(
               onTap: () {
                 //status = SidebarStatus.home;
                 context.read<SidebarProvider>().setStatus(SidebarStatus.home);
@@ -73,10 +70,8 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: InkWell(
+            const SizedBox(height: 20),
+            InkWell(
               onTap: () {
                 // status = SidebarStatus.categories;
                 context
@@ -103,10 +98,8 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: InkWell(
+            const SizedBox(height: 20),
+            InkWell(
               onTap: () {
                 context
                     .read<SidebarProvider>()
@@ -131,10 +124,8 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: InkWell(
+            const SizedBox(height: 20),
+            InkWell(
               onTap: () {
                 context
                     .read<SidebarProvider>()
@@ -159,10 +150,8 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: InkWell(
+            const SizedBox(height: 20),
+            InkWell(
               onTap: () {
                 context
                     .read<SidebarProvider>()
@@ -187,10 +176,8 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: InkWell(
+            const SizedBox(height: 20),
+            InkWell(
               onTap: () {
                 context
                     .read<SidebarProvider>()
@@ -215,14 +202,8 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          const Spacer(),
-          const Spacer(),
-          const Spacer(),
-          const Spacer(),
-          const Spacer(),
-          const Spacer(),
-        ],
+          ],
+        ),
       ),
     );
   }
