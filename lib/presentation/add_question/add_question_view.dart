@@ -45,7 +45,7 @@ class AddQuestionView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal:
-                                  Responsive.isDesktop(context) ? 180 : 12),
+                                  Responsive.isLarge(context) ? 180 : 12),
                           child: Column(
                             children: [
                               SizedBox(

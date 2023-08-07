@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:neon_overflow/presentation/categories/categories_view.dart';
-import 'package:neon_overflow/presentation/home/home_view.dart';
-import 'package:neon_overflow/presentation/widgets/sidebar/header/header.dart';
+import 'package:neon_overflow/presentation/widgets/header/header.dart';
 import 'package:neon_overflow/presentation/widgets/sidebar/sidebar.dart';
-import 'package:neon_overflow/presentation/widgets/sidebar/sidebar_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../core/responsive.dart';
+import 'categories/categories_view.dart';
+import 'home/home_view.dart';
+import 'widgets/sidebar/sidebar_provider.dart';
 
 class MainView extends StatelessWidget {
   const MainView({super.key});
@@ -14,19 +14,21 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
+      appBar: const Header(),
+      drawer: Responsive.isExtraSmall(context) || Responsive.isSmall(context)
+          ? const Sidebar()
+          : null,
+      body: Column(
         children: [
-          Responsive.isMobile(context)
-              ? const SizedBox.shrink()
-              : const Sidebar(),
           Expanded(
-            // Use Expanded to take the remaining available width
-            child: Column(
+            child: Row(
               children: [
-                const Header(),
+                Responsive.isSmall(context) || Responsive.isExtraSmall(context)
+                    ? const SizedBox.shrink()
+                    : const Sidebar(),
                 Consumer<SidebarProvider>(
                   builder: (context, value, child) {
-                    var getStatus = context.read<SidebarProvider>().getStatus;
+                    var getStatus = context.watch<SidebarProvider>().getStatus;
                     if (getStatus == SidebarStatus.home) {
                       return HomeView();
                     } else if (getStatus == SidebarStatus.categories) {
