@@ -18,17 +18,33 @@ class HomeView extends StatelessWidget {
   final AnswerRepository answerRepository = AnswerRepository();
   final UserRepository userRepository = UserRepository();
 
-  int responsiveControl(context) {
-    if (!Responsive.isDesktop(context)) {
+  int gridViewResponsive(context) {
+    var result = Responsive.isExtraSmall(context) ||
+        Responsive.isMedium(context) ||
+        Responsive.isSmall(context);
+    if (result) {
       return 1;
     }
     return 2;
+  }
+
+  double rightPaddingResponsive(context) {
+    var result = Responsive.isSmall(context) ||
+        Responsive.isExtraSmall(context) ||
+        Responsive.isMedium(context) ||
+        Responsive.isLarge(context) ||
+        Responsive.isExtraLarge(context);
+    if (result) {
+      return 0;
+    }
+    return 200;
   }
 
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var size = MediaQuery.sizeOf(context);
+    print(size);
     return BlocProvider(
       create: (context) => HomeCubit(
         questionRepository: questionRepository,
@@ -48,11 +64,10 @@ class HomeView extends StatelessWidget {
           return Expanded(
             // Use Expanded to take the remaining available height
             child: Padding(
-              padding: EdgeInsets.only(
-                  right: Responsive.isDesktop(context) ? 120 : 0),
+              padding: EdgeInsets.only(right: rightPaddingResponsive(context)),
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: responsiveControl(context)),
+                    crossAxisCount: gridViewResponsive(context)),
                 itemCount: 4, // Replace this with the actual count of cards
                 itemBuilder: (context, index) {
                   return Placeholder(); // Make sure CardWidget has a proper height

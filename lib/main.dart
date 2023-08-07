@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:neon_overflow/presentation/main_view.dart';
 import 'package:neon_overflow/presentation/widgets/sidebar/sidebar_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'firebase_options.dart';
-import 'presentation/home/home_view.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
+  setPathUrlStrategy();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -21,9 +21,45 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainView(),
+      home: const MainView(),
+      initialRoute: "/",
+      routes: {
+        '/home': (context) {
+          context.read<SidebarProvider>().setSelectedIndex(0);
+          context.read<SidebarProvider>().setStatus(SidebarStatus.home);
+          return const MainView();
+        },
+        '/categories': (context) {
+          context.read<SidebarProvider>().setSelectedIndex(1);
+          context.read<SidebarProvider>().setStatus(SidebarStatus.categories);
+          return const MainView();
+        },
+        '/notification': (context) {
+          context.read<SidebarProvider>().setSelectedIndex(2);
+          context
+              .read<SidebarProvider>()
+              .setStatus(SidebarStatus.notifications);
+          return const MainView();
+        },
+        '/favorites': (context) {
+          context.read<SidebarProvider>().setSelectedIndex(3);
+          context.read<SidebarProvider>().setStatus(SidebarStatus.favorites);
+          return const MainView();
+        },
+        '/myquestions': (context) {
+          context.read<SidebarProvider>().setSelectedIndex(4);
+          context.read<SidebarProvider>().setStatus(SidebarStatus.myquestions);
+          return const MainView();
+        },
+        '/settings': (context) {
+          context.read<SidebarProvider>().setSelectedIndex(5);
+          context.read<SidebarProvider>().setStatus(SidebarStatus.settings);
+          return const MainView();
+        },
+        // Diğer sayfaları da burada benzer şekilde ekleyebilirsiniz.
+      },
     );
   }
 }
