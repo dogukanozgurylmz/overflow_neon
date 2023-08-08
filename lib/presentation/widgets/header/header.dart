@@ -19,7 +19,13 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       actions: [
         Responsive.isExtraSmall(context) || Responsive.isSmall(context)
-            ? const SizedBox.shrink()
+            ? IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+              )
             : SizedBox(
                 width: Responsive.isSmall(context) ? size.width * 0.4 : 300,
                 child: Padding(
@@ -80,6 +86,11 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           child: const CircleAvatar(),
         ),
       ],
+      // leading: IconButton(
+      //   onPressed: () {},
+      //   icon: const Icon(Icons.menu),
+      //   color: Colors.white,
+      // ),
       backgroundColor: const Color(0xff202020),
       title: const Text.rich(
         TextSpan(

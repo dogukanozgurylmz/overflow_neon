@@ -84,15 +84,11 @@ class _SidebarState extends State<Sidebar> {
             label: Text('Settings'),
           ),
         ],
-
         extended: Responsive.isMedium(context) || Responsive.isLarge(context)
             ? false
             : true,
-        selectedIndex: null, //context.watch<SidebarProvider>().selectedIndex,
-
+        selectedIndex: context.watch<SidebarProvider>().selectedIndex,
         onDestinationSelected: (int index) {
-          print(index);
-          print(selectedIndex);
           context
               .read<SidebarProvider>()
               .setStatus(SidebarStatus.values[index]);
