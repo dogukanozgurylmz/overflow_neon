@@ -49,22 +49,18 @@ class HomeView extends StatelessWidget {
                 children: [
                   const QuestionBarWidget(),
                   Expanded(
-                    child: GridView.builder(
-                      padding: const EdgeInsets.all(12),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: gridViewResponsive(context),
-                        childAspectRatio: 3,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                      ),
+                    child: ListView.builder(
                       itemCount: state.questions
                           .length, // Replace this with the actual count of cards
                       itemBuilder: (context, index) {
                         var question = state.questions[index];
-                        return CardWidget(
-                          question: question,
-                          cubit: cubit,
-                          state: state,
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CardWidget(
+                            question: question,
+                            cubit: cubit,
+                            state: state,
+                          ),
                         ); // Make sure CardWidget has a proper height
                       },
                     ),
