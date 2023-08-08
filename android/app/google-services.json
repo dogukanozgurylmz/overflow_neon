@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "116772309492",
+    "project_id": "neonoverflow-8091c",
+    "storage_bucket": "neonoverflow-8091c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116772309492:android:357cbf2900d520647691a1",
+        "android_client_info": {
+          "package_name": "com.example.neon_overflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116772309492-befee5p2eqeu5b02gbs01lgje5t8ppua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl4S6XywblTY3eDYGChuA1Eequej-3BIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116772309492-befee5p2eqeu5b02gbs01lgje5t8ppua.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "116772309492-ekmevu6doe10l3hcj0e29a4upvo52cf3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.neonoverflow"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116772309492:android:5349f32ff39c591b7691a1",
+        "android_client_info": {
+          "package_name": "com.example.neonoverflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116772309492-befee5p2eqeu5b02gbs01lgje5t8ppua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl4S6XywblTY3eDYGChuA1Eequej-3BIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116772309492-befee5p2eqeu5b02gbs01lgje5t8ppua.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "116772309492-ekmevu6doe10l3hcj0e29a4upvo52cf3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.neonoverflow"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

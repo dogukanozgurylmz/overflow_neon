@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBl4S6XywblTY3eDYGChuA1Eequej-3BIQ',
-    appId: '1:116772309492:android:5349f32ff39c591b7691a1',
+    appId: '1:116772309492:android:357cbf2900d520647691a1',
     messagingSenderId: '116772309492',
     projectId: 'neonoverflow-8091c',
     storageBucket: 'neonoverflow-8091c.appspot.com',
@@ -63,21 +63,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBdJl8zui-fhIdKEFfU-IfO02P2Q4CSV4s',
-    appId: '1:116772309492:ios:407c24dcececbe487691a1',
+    appId: '1:116772309492:ios:1906b1533f0f39aa7691a1',
     messagingSenderId: '116772309492',
     projectId: 'neonoverflow-8091c',
     storageBucket: 'neonoverflow-8091c.appspot.com',
-    iosClientId: '116772309492-ekmevu6doe10l3hcj0e29a4upvo52cf3.apps.googleusercontent.com',
-    iosBundleId: 'com.example.neonoverflow',
+    iosClientId: '116772309492-eoa6m9ookbrip8jn5ufa7aj2oajtvap7.apps.googleusercontent.com',
+    iosBundleId: 'com.example.neonOverflow',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBdJl8zui-fhIdKEFfU-IfO02P2Q4CSV4s',
-    appId: '1:116772309492:ios:d4748df08ac5f7c77691a1',
+    appId: '1:116772309492:ios:9179e884d3f1e2c47691a1',
     messagingSenderId: '116772309492',
     projectId: 'neonoverflow-8091c',
     storageBucket: 'neonoverflow-8091c.appspot.com',
-    iosClientId: '116772309492-pn74tg3odqj821v13ontj8vk7qv2q8cv.apps.googleusercontent.com',
-    iosBundleId: 'com.example.neonoverflow.RunnerTests',
+    iosClientId: '116772309492-oqh7i41jmgi1943ul9h3cik7hliulqei.apps.googleusercontent.com',
+    iosBundleId: 'com.example.neonOverflow.RunnerTests',
   );
 }
