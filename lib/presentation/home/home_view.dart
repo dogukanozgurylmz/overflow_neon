@@ -17,6 +17,7 @@ class HomeView extends StatelessWidget {
   final CategoryRepository categoryRepository = CategoryRepository();
   final AnswerRepository answerRepository = AnswerRepository();
   final UserRepository userRepository = UserRepository();
+  String? fullName;
 
   int gridViewResponsive(context) {
     var result = Responsive.isExtraSmall(context) ||
@@ -65,17 +66,158 @@ class HomeView extends StatelessWidget {
             // Use Expanded to take the remaining available height
             child: Padding(
               padding: EdgeInsets.only(right: rightPaddingResponsive(context)),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: gridViewResponsive(context)),
-                itemCount: 4, // Replace this with the actual count of cards
-                itemBuilder: (context, index) {
-                  return Placeholder(); // Make sure CardWidget has a proper height
-                },
+              child: Column(
+                children: [
+                  Row(children: [
+                    Text("Questions"),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/addquestion");
+                        },
+                        child: Text("Ask Question")),
+                  ]),
+                  GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: gridViewResponsive(context)),
+                    itemCount: 4, // Replace this with the actual count of cards
+                    itemBuilder: (context, index) {
+                      return CardWidget(); // Make sure CardWidget has a proper height
+                    },
+                  ),
+                ],
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class CardWidget extends StatelessWidget {
+  CardWidget({super.key});
+
+  String? fontFamily = "Poppins";
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 468,
+      height: 239,
+      child: Stack(
+        children: [
+          Container(
+            width: 468,
+            height: 239,
+            decoration: ShapeDecoration(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+          ),
+          Container(
+            width: 53,
+            height: 35,
+            decoration: const ShapeDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(0.00, -1.00),
+                end: Alignment(0, 1),
+                colors: [Color(0x897D00AA), Color(0xFF7D00AA)],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                ),
+              ),
+            ),
+            margin: const EdgeInsets.only(left: 415, top: 0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'iOS',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontFamily: fontFamily,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: 50,
+            height: 50,
+            decoration: ShapeDecoration(
+              image: const DecorationImage(
+                image: NetworkImage("https://picsum.photos/200"),
+                fit: BoxFit.fill,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            margin: const EdgeInsets.only(left: 10, top: 10),
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 66, top: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Doğukan Özgür Yılmaz',
+                  style: TextStyle(
+                    color: Color(0xFF202020),
+                    fontSize: 16,
+                    fontFamily: fontFamily,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  '23.08.2023 23.30',
+                  style: TextStyle(
+                    color: Color(0xFF7D7D7D),
+                    fontSize: 14,
+                    fontFamily: fontFamily,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 66, top: 65),
+            width: 361,
+            child: Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+              style: TextStyle(
+                color: Color(0xFF303030),
+                fontSize: 16,
+                fontFamily: fontFamily,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          Container(
+            width: 89,
+            height: 35,
+            margin: const EdgeInsets.only(left: 3, top: 201),
+            child: Container(
+              margin: const EdgeInsets.only(left: 7, top: 5),
+              child: Text(
+                '3 answer',
+                style: TextStyle(
+                  color: Color(0xFF202020),
+                  fontSize: 16,
+                  fontFamily: fontFamily,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

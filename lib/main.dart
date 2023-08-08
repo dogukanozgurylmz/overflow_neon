@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:neon_overflow/presentation/add_question/add_question_view.dart';
 import 'package:neon_overflow/presentation/main_view.dart';
 import 'package:neon_overflow/presentation/signin/signin_view.dart';
 import 'package:neon_overflow/presentation/splash/splash_view.dart';
@@ -61,6 +62,7 @@ class MainApp extends StatelessWidget {
           return const MainView();
         },
         '/signin': (context) => SignInView(),
+        '/addqusetion': (context) => AddQuestionView(),
       },
     );
   }
