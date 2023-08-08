@@ -32,20 +32,17 @@ class SigninCubit extends Cubit<SigninState> {
   }
 
   Future<bool> hasUserId() async {
-    var userModel =
-        await _userRepository.getById(_authRepository.currentUser!.uid);
-    if (userModel.id == "") {
-      return false;
-    }
-    return true;
+    var result =
+        await _userRepository.hasUser(_authRepository.currentUser!.uid);
+    return result;
   }
 
   Future<void> createUser() async {
     var userModel = UserModel(
       id: _authRepository.currentUser!.uid,
-      imageUrl: "",
+      imageUrl: _authRepository.currentUser!.photoURL ?? "",
       createdAt: DateTime.now(),
-      firstname: "",
+      firstname: _authRepository.currentUser!.displayName ?? "",
       lastname: "",
       email: emailController.text.trim(),
     );

@@ -24,4 +24,12 @@ class UserRepository {
       throw Exception(e);
     }
   }
+
+  Future<bool> hasUser(String id) async {
+    var querySnapshot = await _firestore.where('id', isEqualTo: id).get();
+    if (querySnapshot.docs.isEmpty) {
+      return false;
+    }
+    return true;
+  }
 }
