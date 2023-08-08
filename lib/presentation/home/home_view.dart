@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neon_overflow/core/getit/getit.dart';
 import 'package:neon_overflow/core/responsive.dart';
 
-import '../../data/model/question_model.dart';
+import '../../data/model/dto/question_dto.dart';
 import 'cubit/home_cubit.dart';
 
 class HomeView extends StatelessWidget {
@@ -28,13 +28,10 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
-    var size = MediaQuery.sizeOf(context);
     return BlocProvider(
       create: (context) => getIt<HomeCubit>(),
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          var cubit = context.read<HomeCubit>();
           if (state.status == HomeStatus.loading) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -50,18 +47,23 @@ class HomeView extends StatelessWidget {
                   const QuestionBarWidget(),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: state.questions
-                          .length, // Replace this with the actual count of cards
+                      itemCount: state.questionModels.length,
                       itemBuilder: (context, index) {
-                        var question = state.questions[index];
+                        var question = state.questionModels[index];
+                        // CategoryModel? category;
+                        // if (state.categoryMap.containsKey(question.id)) {
+                        //   category = state.categoryMap[question.id];
+                        // }
+                        // print(category);
+
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CardWidget(
                             question: question,
-                            cubit: cubit,
+                            // categoryModel: category!,
                             state: state,
                           ),
-                        ); // Make sure CardWidget has a proper height
+                        );
                       },
                     ),
                   ),
@@ -109,26 +111,20 @@ class QuestionBarWidget extends StatelessWidget {
 
 // ignore: must_be_immutable
 class CardWidget extends StatelessWidget {
-  final HomeCubit cubit;
-  final QuestionModel question;
+  final QuestionDtoModel question;
+  // final CategoryModel categoryModel;
   final HomeState state;
   CardWidget({
     super.key,
     required this.question,
-    required this.cubit,
+    // required this.categoryModel,
     required this.state,
   });
 
-  String? fontFamily = "Poppins";
-  String? categoryName = "iOS";
-  String? fullName = "Doğukan Özgür Yılmaz";
-  String? imageUrl = "https://picsum.photos/200";
-  int? answerCount = 3;
   List<Color> colors = [const Color(0x897D00AA), const Color(0xFF7D00AA)];
 
   @override
   Widget build(BuildContext context) {
-    // cubit.getByCategoryId(question.categoryId!);
     return Container(
       decoration: ShapeDecoration(
         color: Colors.white,
@@ -138,6 +134,7 @@ class CardWidget extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +148,7 @@ class CardWidget extends StatelessWidget {
                   margin: const EdgeInsets.all(8),
                   decoration: ShapeDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("snapshot.data!.imageUrl!"),
+                      image: NetworkImage(question.userPhoto!),
                       fit: BoxFit.fill,
                     ),
                     shape: RoundedRectangleBorder(
@@ -168,21 +165,19 @@ class CardWidget extends StatelessWidget {
                     InkWell(
                       onTap: () {},
                       child: Text(
-                        "snapshot.data!.firstname!",
-                        style: TextStyle(
-                          color: const Color(0xFF202020),
+                        question.firstname!,
+                        style: const TextStyle(
+                          color: Color(0xFF202020),
                           fontSize: 16,
-                          fontFamily: fontFamily,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Text(
                       "${question.createdAt!.day}",
-                      style: TextStyle(
-                        color: const Color(0xFF7D7D7D),
+                      style: const TextStyle(
+                        color: Color(0xFF7D7D7D),
                         fontSize: 14,
-                        fontFamily: fontFamily,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -191,26 +186,28 @@ class CardWidget extends StatelessWidget {
               ),
               const Spacer(),
               CategoryCornerWidget(
-                  colors: colors,
-                  categoryName: "snapshot.data!.name,",
-                  fontFamily: fontFamily),
+                colors: colors,
+                categoryName: question.categoryName,
+              )
             ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               question.body!,
-              style: TextStyle(
-                color: const Color(0xFF303030),
+              style: const TextStyle(
+                color: Color(0xFF303030),
                 fontSize: 16,
-                fontFamily: fontFamily,
                 fontWeight: FontWeight.w400,
               ),
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
             ),
           ),
-          AnswersCountWidget(answerCount: answerCount, fontFamily: fontFamily),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("${question.answerCount} answers"),
+          ),
         ],
       ),
     );
@@ -222,12 +219,10 @@ class CategoryCornerWidget extends StatelessWidget {
     super.key,
     required this.colors,
     required this.categoryName,
-    required this.fontFamily,
   });
 
   final List<Color> colors;
   final String? categoryName;
-  final String? fontFamily;
 
   @override
   Widget build(BuildContext context) {
@@ -251,30 +246,13 @@ class CategoryCornerWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           categoryName!,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 14,
-            fontFamily: fontFamily,
             fontWeight: FontWeight.w400,
           ),
         ),
       ),
     );
-  }
-}
-
-class AnswersCountWidget extends StatelessWidget {
-  const AnswersCountWidget({
-    super.key,
-    required this.answerCount,
-    required this.fontFamily,
-  });
-
-  final int? answerCount;
-  final String? fontFamily;
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text("Answer Count");
   }
 }

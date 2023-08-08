@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:neon_overflow/data/model/answer_model.dart';
+import 'package:neon_overflow/data/model/dto/question_dto.dart';
 import 'package:neon_overflow/data/model/question_model.dart';
 import 'package:neon_overflow/data/model/category_model.dart';
 import 'package:neon_overflow/data/model/user_model.dart';
@@ -21,15 +22,9 @@ class HomeCubit extends Cubit<HomeState> {
         _categoryRepository = categoryRepository,
         _answerRepository = answerRepository,
         _userRepository = userRepository,
-        super(HomeState(
+        super(const HomeState(
           status: HomeStatus.init,
-          questions: const [],
-          categories: const [],
-          answers: const [],
-          categoryModel: CategoryModel(
-            id: "id",
-            name: "name",
-          ),
+          questionModels: [],
         )) {
     init();
   }
@@ -39,21 +34,25 @@ class HomeCubit extends Cubit<HomeState> {
   final AnswerRepository _answerRepository;
   final UserRepository _userRepository;
 
+  final List<QuestionModel> _questions = [];
+  final List<CategoryModel> _categories = [];
+
   Future<void> init() async {
     emit(state.copyWith(status: HomeStatus.loading));
     await getAllQuestions();
     await getAllCategories();
+    await deneme();
     emit(state.copyWith(status: HomeStatus.success));
   }
 
   Future<void> getAllQuestions() async {
     var list = await _questionRepository.getAll();
-    emit(state.copyWith(questions: list));
+    _questions.addAll(list);
   }
 
   Future<void> getAllCategories() async {
     var list = await _categoryRepository.getAll();
-    emit(state.copyWith(categories: list));
+    _categories.addAll(list);
   }
 
   Future<List<AnswerModel>> getAnswersByQuestionId(String questionId) async {
@@ -68,7 +67,30 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<CategoryModel> getByCategoryId(String id) async {
     var categoryModel = await _categoryRepository.getById(id);
-    // emit(state.copyWith(categoryModel: categoryModel));
     return categoryModel;
+  }
+
+  Future<void> deneme() async {
+    List<QuestionDtoModel> questionModels = [];
+    for (var q in _questions) {
+      var c = _categories.firstWhere((element) => element.id == q.categoryId);
+      var userModel = await getUserById(q.userId!);
+      // var list = await getAnswersByQuestionId(q.id!);
+      QuestionDtoModel model = QuestionDtoModel(
+        id: q.id,
+        firstname: userModel.firstname,
+        lastname: userModel.lastname,
+        userPhoto: userModel.imageUrl,
+        body: q.body,
+        quillBody: q.quillBody,
+        title: q.title,
+        status: q.status,
+        categoryName: c.name,
+        answerCount: 1,
+        createdAt: q.createdAt,
+      );
+      questionModels.add(model);
+    }
+    emit(state.copyWith(questionModels: questionModels));
   }
 }
