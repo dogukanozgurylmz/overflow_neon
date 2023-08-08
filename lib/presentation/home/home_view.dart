@@ -69,20 +69,28 @@ class HomeView extends StatelessWidget {
               child: Column(
                 children: [
                   Row(children: [
-                    Text("Questions"),
+                    const Text("Questions"),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, "/addquestion");
                         },
-                        child: Text("Ask Question")),
+                        child: const Text("Ask Question")),
                   ]),
-                  GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: gridViewResponsive(context)),
-                    itemCount: 4, // Replace this with the actual count of cards
-                    itemBuilder: (context, index) {
-                      return CardWidget(); // Make sure CardWidget has a proper height
-                    },
+                  Expanded(
+                    child: GridView.builder(
+                      padding: const EdgeInsets.all(12),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: gridViewResponsive(context),
+                        childAspectRatio: 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                      ),
+                      itemCount:
+                          4, // Replace this with the actual count of cards
+                      itemBuilder: (context, index) {
+                        return CardWidget(); // Make sure CardWidget has a proper height
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -99,126 +107,122 @@ class CardWidget extends StatelessWidget {
   CardWidget({super.key});
 
   String? fontFamily = "Poppins";
+  String? categoryName = "iOS";
+  List<Color> colors = [const Color(0x897D00AA), const Color(0xFF7D00AA)];
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 468,
-      height: 239,
-      child: Stack(
-        children: [
-          Container(
-            width: 468,
-            height: 239,
-            decoration: ShapeDecoration(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+    return Stack(
+      children: [
+        Container(
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+        ),
+        Container(
+          width: 53,
+          height: 35,
+          decoration: ShapeDecoration(
+            gradient: LinearGradient(
+              begin: const Alignment(0.00, -1.00),
+              end: const Alignment(0, 1),
+              colors: colors,
+            ),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
               ),
             ),
           ),
-          Container(
-            width: 53,
-            height: 35,
-            decoration: const ShapeDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(0.00, -1.00),
-                end: Alignment(0, 1),
-                colors: [Color(0x897D00AA), Color(0xFF7D00AA)],
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(16),
-                  bottomLeft: Radius.circular(16),
-                ),
-              ),
-            ),
-            margin: const EdgeInsets.only(left: 415, top: 0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                'iOS',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontFamily: fontFamily,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: ShapeDecoration(
-              image: const DecorationImage(
-                image: NetworkImage("https://picsum.photos/200"),
-                fit: BoxFit.fill,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-            margin: const EdgeInsets.only(left: 10, top: 10),
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 66, top: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Doğukan Özgür Yılmaz',
-                  style: TextStyle(
-                    color: Color(0xFF202020),
-                    fontSize: 16,
-                    fontFamily: fontFamily,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  '23.08.2023 23.30',
-                  style: TextStyle(
-                    color: Color(0xFF7D7D7D),
-                    fontSize: 14,
-                    fontFamily: fontFamily,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 66, top: 65),
-            width: 361,
+          margin: const EdgeInsets.only(left: 415, top: 0),
+          child: Align(
+            alignment: Alignment.center,
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+              categoryName!,
               style: TextStyle(
-                color: Color(0xFF303030),
-                fontSize: 16,
+                color: Colors.white,
+                fontSize: 14,
                 fontFamily: fontFamily,
                 fontWeight: FontWeight.w400,
               ),
             ),
           ),
-          Container(
-            width: 89,
-            height: 35,
-            margin: const EdgeInsets.only(left: 3, top: 201),
-            child: Container(
-              margin: const EdgeInsets.only(left: 7, top: 5),
-              child: Text(
-                '3 answer',
+        ),
+        Container(
+          width: 50,
+          height: 50,
+          decoration: ShapeDecoration(
+            image: const DecorationImage(
+              image: NetworkImage("https://picsum.photos/200"),
+              fit: BoxFit.fill,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+          margin: const EdgeInsets.only(left: 10, top: 10),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 66, top: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Doğukan Özgür Yılmaz',
                 style: TextStyle(
-                  color: Color(0xFF202020),
+                  color: const Color(0xFF202020),
                   fontSize: 16,
                   fontFamily: fontFamily,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                 ),
+              ),
+              Text(
+                '23.08.2023 23.30',
+                style: TextStyle(
+                  color: const Color(0xFF7D7D7D),
+                  fontSize: 14,
+                  fontFamily: fontFamily,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 66, top: 65),
+          width: 361,
+          child: Text(
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
+            style: TextStyle(
+              color: const Color(0xFF303030),
+              fontSize: 16,
+              fontFamily: fontFamily,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+        Container(
+          width: 89,
+          height: 35,
+          margin: const EdgeInsets.only(left: 3, top: 201),
+          child: Container(
+            margin: const EdgeInsets.only(left: 7, top: 5),
+            child: Text(
+              '3 answer',
+              style: TextStyle(
+                color: const Color(0xFF202020),
+                fontSize: 16,
+                fontFamily: fontFamily,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

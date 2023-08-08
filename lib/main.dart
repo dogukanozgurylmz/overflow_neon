@@ -62,7 +62,7 @@ class MainApp extends StatelessWidget {
           return const MainView();
         },
         '/signin': (context) => SignInView(),
-        '/addqusetion': (context) => AddQuestionView(),
+        '/addquestion': (context) => AddQuestionView(),
       },
     );
   }
