@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_overflow/presentation/main_view.dart';
+import 'package:neon_overflow/presentation/signin/signin_view.dart';
+import 'package:neon_overflow/presentation/splash/splash_view.dart';
 import 'package:neon_overflow/presentation/widgets/sidebar/sidebar_provider.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -23,7 +25,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MainView(),
+      home: const SplashView(),
       initialRoute: "/",
       routes: {
         '/home': (context) {
@@ -58,7 +60,7 @@ class MainApp extends StatelessWidget {
           context.read<SidebarProvider>().setStatus(SidebarStatus.settings);
           return const MainView();
         },
-        // Diğer sayfaları da burada benzer şekilde ekleyebilirsiniz.
+        '/signin': (context) => SignInView(),
       },
     );
   }
