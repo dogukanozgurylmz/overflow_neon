@@ -21,13 +21,17 @@ class HomeCubit extends Cubit<HomeState> {
         _categoryRepository = categoryRepository,
         _answerRepository = answerRepository,
         _userRepository = userRepository,
-        super(const HomeState(
+        super(HomeState(
           status: HomeStatus.init,
-          questions: [],
-          categories: [],
-          answers: [],
+          questions: const [],
+          categories: const [],
+          answers: const [],
+          categoryModel: CategoryModel(
+            id: "id",
+            name: "name",
+          ),
         )) {
-    // init();
+    init();
   }
 
   final QuestionRepository _questionRepository;
@@ -60,5 +64,11 @@ class HomeCubit extends Cubit<HomeState> {
   Future<UserModel> getUserById(String id) async {
     var userModel = await _userRepository.getById(id);
     return userModel;
+  }
+
+  Future<CategoryModel> getByCategoryId(String id) async {
+    var categoryModel = await _categoryRepository.getById(id);
+    // emit(state.copyWith(categoryModel: categoryModel));
+    return categoryModel;
   }
 }

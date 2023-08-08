@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:neon_overflow/core/getit/getit.dart';
 import 'package:neon_overflow/presentation/add_question/add_question_view.dart';
 import 'package:neon_overflow/presentation/main_view.dart';
 import 'package:neon_overflow/presentation/signin/signin_view.dart';
@@ -11,6 +12,7 @@ import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   setPathUrlStrategy();
+  setup();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

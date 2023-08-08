@@ -18,4 +18,9 @@ class CategoryRepository {
       throw Exception(e);
     }
   }
+
+  Future<CategoryModel> getById(String id) async {
+    var querySnapshot = await _firestore.where('id', isEqualTo: id).get();
+    return CategoryModel.fromJson(querySnapshot.docs.first.data());
+  }
 }

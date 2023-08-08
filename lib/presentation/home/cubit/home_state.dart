@@ -12,12 +12,14 @@ class HomeState extends Equatable {
   final List<QuestionModel> questions;
   final List<CategoryModel> categories;
   final List<AnswerModel> answers;
+  final CategoryModel categoryModel;
 
   const HomeState({
     required this.status,
     required this.questions,
     required this.categories,
     required this.answers,
+    required this.categoryModel,
   });
 
   HomeState copyWith({
@@ -25,12 +27,14 @@ class HomeState extends Equatable {
     List<QuestionModel>? questions,
     List<CategoryModel>? categories,
     List<AnswerModel>? answers,
+    CategoryModel? categoryModel,
   }) {
     return HomeState(
       status: status ?? this.status,
       questions: questions ?? this.questions,
       categories: categories ?? this.categories,
       answers: answers ?? this.answers,
+      categoryModel: categoryModel ?? this.categoryModel,
     );
   }
 
@@ -40,5 +44,6 @@ class HomeState extends Equatable {
         questions,
         categories,
         answers,
+        categoryModel,
       ];
 }
