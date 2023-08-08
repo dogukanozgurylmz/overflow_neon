@@ -16,6 +16,7 @@ class MainView extends StatelessWidget {
     var size = MediaQuery.sizeOf(context);
     var selectedIndex = context.watch<SidebarProvider>().selectedIndex;
     return Scaffold(
+      backgroundColor: Color(0xffECEEFF),
       appBar: const Header(),
       bottomNavigationBar:
           Responsive.isExtraSmall(context) || Responsive.isSmall(context)
