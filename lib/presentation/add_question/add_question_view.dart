@@ -87,16 +87,18 @@ class AddQuestionView extends StatelessWidget {
                                   for (var category in state.categories)
                                     Padding(
                                       padding: const EdgeInsets.only(right: 8),
-                                      child: Chip(
-                                        label: Text(category.name!),
-                                        deleteIcon: Icon(
-                                            state.selectedCategory ==
-                                                    category.id
-                                                ? Icons.circle
-                                                : Icons.circle_outlined),
-                                        onDeleted: () {
+                                      child: InkWell(
+                                        onTap: () {
                                           cubit.selectedCategory(category.id!);
                                         },
+                                        child: Chip(
+                                          backgroundColor:
+                                              state.selectedCategory ==
+                                                      category.id
+                                                  ? Colors.green
+                                                  : null,
+                                          label: Text(category.name!),
+                                        ),
                                       ),
                                     ),
                                 ],
@@ -126,50 +128,30 @@ class AddQuestionView extends StatelessWidget {
                                   : ElevatedButton(
                                       onPressed: () async {
                                         if (state.selectedCategory == "") {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                            content:
-                                                Text('Category is not empty'),
-                                            duration: Duration(seconds: 1),
-                                          ));
+                                          _scaffoldMessengerBuilder(
+                                              context, 'Category is not empty');
                                         } else if (cubit
                                                 .titleController.text.isEmpty ||
                                             cubit.titleController.text == "") {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                            content: Text('Title is not empty'),
-                                            duration: Duration(seconds: 1),
-                                          ));
+                                          _scaffoldMessengerBuilder(
+                                              context, 'Title is not empty');
                                         } else if (cubit.explanationController
                                                 .text.isEmpty ||
                                             cubit.explanationController.text ==
                                                 "") {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                            content: Text(
-                                                'Explanation is not empty'),
-                                            duration: Duration(seconds: 1),
-                                          ));
+                                          _scaffoldMessengerBuilder(context,
+                                              'Explanation is not empty');
                                         } else if (cubit
                                                 .quillcontroller.document
                                                 .isEmpty() ||
                                             cubit.quillcontroller.document
                                                     .length ==
                                                 0) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                            content:
-                                                Text('Editor is not empty'),
-                                            duration: Duration(seconds: 1),
-                                          ));
+                                          _scaffoldMessengerBuilder(
+                                              context, 'Editor is not empty');
                                         } else {
                                           await cubit.createQuestion();
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeView(),
-                                              ));
+                                          Navigator.pushNamed(context, '/home');
                                         }
                                       },
                                       child: const Text("Send"),
@@ -185,5 +167,12 @@ class AddQuestionView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _scaffoldMessengerBuilder(context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: 1),
+    ));
   }
 }
