@@ -76,13 +76,16 @@ class HomeView extends StatelessWidget {
                         },
                         child: Text("Ask Question")),
                   ]),
-                  GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: gridViewResponsive(context)),
-                    itemCount: 4, // Replace this with the actual count of cards
-                    itemBuilder: (context, index) {
-                      return CardWidget(); // Make sure CardWidget has a proper height
-                    },
+                  Expanded(
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: gridViewResponsive(context)),
+                      itemCount:
+                          4, // Replace this with the actual count of cards
+                      itemBuilder: (context, index) {
+                        return CardWidget(); // Make sure CardWidget has a proper height
+                      },
+                    ),
                   ),
                 ],
               ),
