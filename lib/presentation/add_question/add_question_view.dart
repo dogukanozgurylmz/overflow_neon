@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:neon_overflow/core/responsive.dart';
+import 'package:neon_overflow/data/repository/auth_repository.dart';
 import 'package:neon_overflow/data/repository/category_repository.dart';
 import 'package:neon_overflow/data/repository/question_repository.dart';
 import 'package:neon_overflow/presentation/add_question/cubit/add_question_cubit.dart';
-import 'package:neon_overflow/presentation/home/home_view.dart';
 
 class AddQuestionView extends StatelessWidget {
   AddQuestionView({super.key});
 
   final CategoryRepository categoryRepository = CategoryRepository();
   final QuestionRepository questionRepository = QuestionRepository();
+  final AuthRepository authRepository = AuthRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class AddQuestionView extends StatelessWidget {
       create: (context) => AddQuestionCubit(
         categoryRepository: categoryRepository,
         questionRepository: questionRepository,
+        authRepository: authRepository,
       ),
       child: BlocBuilder<AddQuestionCubit, AddQuestionState>(
         builder: (context, state) {
