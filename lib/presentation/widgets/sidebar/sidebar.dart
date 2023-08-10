@@ -16,7 +16,6 @@ class Sidebar extends StatefulWidget {
 }
 
 class _SidebarState extends State<Sidebar> {
-  int selectedIndex = 0;
   bool iconSidebarResponsive(context) {
     var result = Responsive.isMedium(context) || Responsive.isLarge(context);
     if (!result) {
@@ -27,8 +26,7 @@ class _SidebarState extends State<Sidebar> {
 
   @override
   Widget build(BuildContext context) {
-    var selectedIndex = context.watch<SidebarProvider>().selectedIndex;
-    print(selectedIndex);
+    var selectedIndex = context.read<SidebarProvider>().selectedIndex;
     return Theme(
       data: Theme.of(context).copyWith(
         navigationRailTheme: const NavigationRailThemeData(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neon_overflow/core/getit/getit.dart';
 import 'package:neon_overflow/core/responsive.dart';
+import 'package:neon_overflow/presentation/provider/route_provider.dart';
+import 'dart:html' as html;
 
 import '../../data/model/dto/question_dto.dart';
 import 'cubit/home_cubit.dart';
@@ -56,12 +59,29 @@ class HomeView extends StatelessWidget {
                         // }
                         // print(category);
 
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CardWidget(
-                            question: question,
-                            // categoryModel: category!,
-                            state: state,
+                        return GestureDetector(
+                          onTap: () {
+                            context
+                                .read<RouteProvider>()
+                                .setQuestionId(question.id!);
+                            print(context.read<RouteProvider>().questionId);
+                            SchedulerBinding.instance.addPostFrameCallback((_) {
+                              Navigator.pushNamed(
+                                context,
+                                "/questiondetails/${question.id}",
+                              );
+                            });
+
+                            // _updateUrlAndNavigate(
+                            //     "/questiondetails/${question.id}");
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CardWidget(
+                              question: question,
+                              // categoryModel: category!,
+                              state: state,
+                            ),
                           ),
                         );
                       },
@@ -74,6 +94,11 @@ class HomeView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _updateUrlAndNavigate(String path) {
+    final newUrl = Uri.parse(path);
+    html.window.history.pushState(null, '', newUrl.toString());
   }
 }
 
