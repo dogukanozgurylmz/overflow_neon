@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:neon_overflow/core/getit/getit.dart';
 import 'package:neon_overflow/presentation/add_question/add_question_view.dart';
 import 'package:neon_overflow/presentation/home/home_view.dart';
@@ -31,42 +33,18 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var routeProvider = context.watch<RouteProvider>();
-    var sidebarProvider = context.read<SidebarProvider>();
+    var sidebarProvider = context.watch<SidebarProvider>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const SplashView(),
+      initialRoute: "/",
       routes: {
-        '/home': (context) {
-          sidebarProvider.setSelectedIndex(0);
-          sidebarProvider.setStatus(SidebarStatus.home);
-          return const MainView();
-        },
-        '/categories': (context) {
-          sidebarProvider.setSelectedIndex(1);
-          sidebarProvider.setStatus(SidebarStatus.categories);
-          return const MainView();
-        },
-        '/notification': (context) {
-          sidebarProvider.setSelectedIndex(2);
-          context
-              .read<SidebarProvider>()
-              .setStatus(SidebarStatus.notifications);
-          return const MainView();
-        },
-        '/favorites': (context) {
-          sidebarProvider.setSelectedIndex(3);
-          sidebarProvider.setStatus(SidebarStatus.favorites);
-          return const MainView();
-        },
-        '/myquestions': (context) {
-          sidebarProvider.setSelectedIndex(4);
-          sidebarProvider.setStatus(SidebarStatus.myquestions);
-          return const MainView();
-        },
-        '/settings': (context) {
-          sidebarProvider.setSelectedIndex(5);
-          sidebarProvider.setStatus(SidebarStatus.settings);
-          return const MainView();
+        '/${sidebarProvider.getStatus.name}': (context) {
+          // context
+          // .read<SidebarProvider>()
+          // .setSelectedIndex(sidebarProvider.getStatus.index);
+          // context.read<SidebarProvider>().setStatus(sidebarProvider.getStatus);
+          return MainView();
         },
         '/signin': (context) => SignInView(),
         '/addquestion': (context) => AddQuestionView(),
@@ -77,11 +55,18 @@ class MainApp extends StatelessWidget {
         if (settings.name == '/questiondetails/${routeProvider.questionId}') {
           return MaterialPageRoute(
             builder: (context) {
-              return QuestionDetailsView();
+              return const QuestionDetailsView();
             },
           );
         }
-        return null;
+        if (settings.name == '/${sidebarProvider.getStatus.name}') {
+          return MaterialPageRoute(
+            builder: (context) => MainView(),
+          );
+        }
+        return MaterialPageRoute(
+          builder: (context) => MainView(),
+        );
       },
     );
   }

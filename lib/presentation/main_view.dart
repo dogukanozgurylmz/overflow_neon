@@ -9,14 +9,23 @@ import 'home/home_view.dart';
 import 'widgets/sidebar/sidebar_provider.dart';
 
 class MainView extends StatelessWidget {
-  const MainView({super.key});
+  MainView({super.key});
+
+  List<Widget> bodies = [
+    const HomeView(),
+    CategoriesView(),
+    const Text("notification"),
+    const Text("favorites"),
+    const Text("myquestions"),
+    const Text("settings"),
+  ];
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     var selectedIndex = context.watch<SidebarProvider>().selectedIndex;
     return Scaffold(
-      backgroundColor: Color(0xffECEEFF),
+      backgroundColor: const Color(0xffECEEFF),
       appBar: const Header(),
       bottomNavigationBar:
           Responsive.isExtraSmall(context) || Responsive.isSmall(context)
@@ -38,21 +47,29 @@ class MainView extends StatelessWidget {
                 Consumer<SidebarProvider>(
                   builder: (context, value, child) {
                     var getStatus = context.watch<SidebarProvider>().getStatus;
-                    if (getStatus == SidebarStatus.home) {
-                      return HomeView();
-                    } else if (getStatus == SidebarStatus.categories) {
-                      return CategoriesView();
-                    } else if (getStatus == SidebarStatus.notifications) {
-                      return const Text("notification");
-                    } else if (getStatus == SidebarStatus.favorites) {
-                      return const Text("favorites");
-                    } else if (getStatus == SidebarStatus.myquestions) {
-                      return const Text("myquestions");
-                    } else if (getStatus == SidebarStatus.settings) {
-                      return const Text("settings");
-                    } else {
-                      return const Text("Default Data");
+                    var index = context.watch<SidebarProvider>().selectedIndex;
+                    for (var status in SidebarStatus.values) {
+                      if (getStatus == status) {
+                        context.read<SidebarProvider>().setStatus(status);
+                        return bodies[index];
+                      }
                     }
+                    return const SizedBox.shrink();
+                    // if (getStatus == SidebarStatus.home) {
+                    //   return HomeView();
+                    // } else if (getStatus == SidebarStatus.categories) {
+                    //   return CategoriesView();
+                    // } else if (getStatus == SidebarStatus.notifications) {
+                    //   return const Text("notification");
+                    // } else if (getStatus == SidebarStatus.favorites) {
+                    //   return const Text("favorites");
+                    // } else if (getStatus == SidebarStatus.myquestions) {
+                    //   return const Text("myquestions");
+                    // } else if (getStatus == SidebarStatus.settings) {
+                    //   return const Text("settings");
+                    // } else {
+                    //   return const Text("Default Data");
+                    // }
                   },
                 ),
               ],

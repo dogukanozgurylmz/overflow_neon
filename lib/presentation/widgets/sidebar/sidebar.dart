@@ -91,11 +91,6 @@ class _SidebarState extends State<Sidebar> {
               .read<SidebarProvider>()
               .setStatus(SidebarStatus.values[index]);
           _updateUrlAndNavigate("/${SidebarStatus.values[index].name}");
-          var result =
-              Responsive.isExtraSmall(context) || Responsive.isSmall(context);
-          if (result) {
-            Navigator.pop(context);
-          }
           context.read<SidebarProvider>().setSelectedIndex(index);
         },
         labelType: NavigationRailLabelType.none,

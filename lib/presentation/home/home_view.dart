@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neon_overflow/core/getit/getit.dart';
 import 'package:neon_overflow/core/responsive.dart';
 import 'package:neon_overflow/presentation/provider/route_provider.dart';
-import 'dart:html' as html;
 
 import '../../data/model/dto/question_dto.dart';
 import 'cubit/home_cubit.dart';
@@ -42,7 +41,6 @@ class HomeView extends StatelessWidget {
           }
           if (state.status == HomeStatus.success) {}
           return Expanded(
-            // Use Expanded to take the remaining available height
             child: Padding(
               padding: EdgeInsets.only(right: rightPaddingResponsive(context)),
               child: Column(
@@ -53,27 +51,17 @@ class HomeView extends StatelessWidget {
                       itemCount: state.questionModels.length,
                       itemBuilder: (context, index) {
                         var question = state.questionModels[index];
-                        // CategoryModel? category;
-                        // if (state.categoryMap.containsKey(question.id)) {
-                        //   category = state.categoryMap[question.id];
-                        // }
-                        // print(category);
-
                         return GestureDetector(
                           onTap: () {
                             context
                                 .read<RouteProvider>()
                                 .setQuestionId(question.id!);
-                            print(context.read<RouteProvider>().questionId);
                             SchedulerBinding.instance.addPostFrameCallback((_) {
                               Navigator.pushNamed(
                                 context,
                                 "/questiondetails/${question.id}",
                               );
                             });
-
-                            // _updateUrlAndNavigate(
-                            //     "/questiondetails/${question.id}");
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -94,11 +82,6 @@ class HomeView extends StatelessWidget {
         },
       ),
     );
-  }
-
-  void _updateUrlAndNavigate(String path) {
-    final newUrl = Uri.parse(path);
-    html.window.history.pushState(null, '', newUrl.toString());
   }
 }
 
@@ -137,12 +120,11 @@ class QuestionBarWidget extends StatelessWidget {
 // ignore: must_be_immutable
 class CardWidget extends StatelessWidget {
   final QuestionDtoModel question;
-  // final CategoryModel categoryModel;
   final HomeState state;
+
   CardWidget({
     super.key,
     required this.question,
-    // required this.categoryModel,
     required this.state,
   });
 

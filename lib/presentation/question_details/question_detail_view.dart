@@ -8,6 +8,29 @@ class QuestionDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = context.read<RouteProvider>();
-    return Text(provider.questionId);
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Title"),
+          Text("Date"),
+          Divider(
+            indent: 30,
+            endIndent: 30,
+            color: Colors.black26,
+          ),
+          Text("body"),
+          Text("quill body"),
+          Divider(
+            indent: 30,
+            endIndent: 30,
+            color: Colors.black26,
+          ),
+          Text("Your answer"),
+          Text("Answers"),
+        ],
+      ),
+    );
   }
 }

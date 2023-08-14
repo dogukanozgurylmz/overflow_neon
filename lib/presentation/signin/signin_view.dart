@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neon_overflow/data/repository/auth_repository.dart';
 import 'package:neon_overflow/data/repository/user_repository.dart';
@@ -45,7 +46,9 @@ class SignInView extends StatelessWidget {
                       : ElevatedButton(
                           onPressed: () async {
                             await cubit.submit();
-                            Navigator.pushNamed(context, "/home");
+                            SchedulerBinding.instance.addPostFrameCallback((_) {
+                              Navigator.pushReplacementNamed(context, "/");
+                            });
                           },
                           child: const Text('Giriş Yap'),
                         ),
