@@ -21,9 +21,9 @@ class _SplashViewState extends State<SplashView> {
   void toDirect() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_authRepository.currentUser != null) {
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushReplacementNamed(context, "/home");
       } else {
-        Navigator.pushNamed(context, "/signin");
+        Navigator.pushReplacementNamed(context, "/signin");
       }
     });
   }

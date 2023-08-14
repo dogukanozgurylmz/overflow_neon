@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -17,6 +18,8 @@
   <base href="$FLUTTER_BASE_HREF">
   <base href="/">
 
+  <!-- <meta name="google-signin-client_id" content="844259723473-ajfdk2loh6mqhbnt4npdaekgtalkqept.apps.googleusercontent.com"> -->
+
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
@@ -28,10 +31,41 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>neon_overflow</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Firebase Configuration-->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>  -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBUX8hWuXk-SDN-rfl9KN4cK-GHd_7XK6o",
+      authDomain: "neonoverflow-8091c.firebaseapp.com",
+      databaseURL: "https://neonoverflow-8091c-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "neonoverflow-8091c",
+      storageBucket: "neonoverflow-8091c.appspot.com",
+      messagingSenderId: "116772309492",
+      appId: "1:116772309492:web:ba32049fd77cbbfd7691a1",
+      measurementId: "G-Q4HQ1L3TZB"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // firebase.analytics();
+  </script>
+  <!-- End of Firebase Configuration-->
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -40,16 +74,17 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
+        onEntrypointLoaded: function (engineInitializer) {
+          engineInitializer.initializeEngine().then(function (appRunner) {
             appRunner.runApp();
           });
         }
@@ -57,4 +92,5 @@
     });
   </script>
 </body>
+
 </html>
